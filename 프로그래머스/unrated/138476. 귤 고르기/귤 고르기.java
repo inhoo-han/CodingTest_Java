@@ -1,29 +1,21 @@
 import java.util.*;
 
 class Solution {
-    public int solution(int k, int[] tan) {
-        int answer = 0;
-        Arrays.sort(tan);
-        
+public static int solution(int k, int[] tangerine) {
         Map<Integer, Integer> map = new HashMap<>();
-        for(int i : tan) {
-            if(map.containsKey(i)) {
-                map.put(i, map.get(i) + 1);
-            } else {
-                map.put(i, 1);
-            }
+
+        for (int t : tangerine) {
+            map.put(t, map.getOrDefault(t, 0) + 1);
         }
-        
-        List<Integer> list = new ArrayList<>();
-        for(Integer i : map.keySet()) {
-            list.add(map.get(i));
-        }
-        
-        list.sort(Collections.reverseOrder());
-        
-        
+
         int sum = 0;
         int ans = 0;
+        List<Integer> list = new ArrayList<>();
+        for (Integer x : map.keySet()) {
+            list.add(map.get(x));
+        }
+        list.sort(Collections.reverseOrder());
+
         for (Integer x : list) {
             ans++;
             sum += x;
@@ -31,7 +23,8 @@ class Solution {
                 break;
             }
         }
-        
+
         return ans;
     }
+
 }
