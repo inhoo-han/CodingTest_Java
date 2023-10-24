@@ -1,0 +1,1 @@
+SELECT * FROM (SELECT * FROM food_product ORDER BY price desc) WHERE rownum = 1
