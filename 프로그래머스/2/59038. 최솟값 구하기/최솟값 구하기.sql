@@ -1,0 +1,1 @@
+SELECT datetime FROM (SELECT datetime FROM animal_ins ORDER BY datetime) WHERE rownum = 1
