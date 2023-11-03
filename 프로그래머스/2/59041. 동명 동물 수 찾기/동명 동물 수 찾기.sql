@@ -1,5 +1,6 @@
-SELECT name, count(name) 
-    FROM animal_ins
-    GROUP BY name
-    HAVING count(name) > 1
-    ORDER BY name
+SELECT name, count(*)
+FROM animal_ins
+WHERE name is not null
+GROUP BY name
+HAVING count(*) > 1
+ORDER BY name
