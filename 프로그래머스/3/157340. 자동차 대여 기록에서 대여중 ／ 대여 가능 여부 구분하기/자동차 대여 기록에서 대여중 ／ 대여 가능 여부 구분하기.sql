@@ -1,13 +1,12 @@
-
-SELECT car_id, CASE WHEN OX = 1 THEN '대여중'
-                    ELSE '대여 가능'
-                    END AS AVAILABILITY
-    FROM (
-        SELECT car_id, sum(CASE WHEN '2022-10-16' BETWEEN TO_CHAR(start_date, 'YYYY-MM-DD') AND TO_CHAR(end_date, 'YYYY-MM-DD') THEN 1
-                      ELSE 0
-                      END) AS OX
-        FROM car_rental_company_rental_history
-        GROUP BY car_id
-        ORDER BY car_id desc
-    )
-
+SELECT c.car_id, CASE WHEN sum(yn) = 0 THEN '대여 가능'
+                      ELSE '대여중'
+                      END AS availability
+    FROM car_rental_company_rental_history c JOIN (
+        SELECT car_id, (CASE WHEN TO_CHAR(start_date, 'YYYY-MM-DD') <= '2022-10-16' AND 
+                         TO_CHAR(end_date, 'YYYY-MM-DD') >= '2022-10-16' THEN 1
+                    ELSE 0
+                    END) AS yn  
+            FROM car_rental_company_rental_history
+        ) a ON c.car_id = a.car_id
+    GROUP BY c.car_id
+    ORDER BY c.car_id desc
